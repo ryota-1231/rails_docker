@@ -23,10 +23,4 @@ COPY Gemfile.lock /myapp/Gemfile.lock
 RUN gem install bundler
 RUN bundle install
 
-ADD Procfile.dev /myapp
-
 COPY . /myapp
-
-EXPOSE 8080
-
-ENTRYPOINT bin/start_server.sh
