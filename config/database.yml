@@ -53,6 +53,6 @@ test:
 production:
   <<: *default
   database: rails_app_production
-  username: myapp
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  username: root
+  password: password
   socket: /var/lib/mysql/mysql.sock

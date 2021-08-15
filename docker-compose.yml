@@ -14,9 +14,9 @@ services:
     volumes:
       - .:/myapp:cached 
       #ソケット通信用ファイルをnginxコンテナと共有
-      - tmp-data:/var/www/myapp/tmp/sockets
+      - tmp-data:/myapp/tmp/sockets
       #画像データとかをnginxと共有
-      - public-data:/var/www/myapp/public
+      - public-data:/myapp/public
 
   db:
     image: mysql:5.7
@@ -39,8 +39,8 @@ services:
       - 80:80
     restart: always #明示的にstopさせるまでリスタートする。（失敗するたび遅延あり）
     volumes:
-      - tmp-data:/var/www/myapp/tmp/sockets
-      - public-data:/var/www/myapp/public
+      - tmp-data:/myapp/tmp/sockets
+      - public-data:/myapp/public
     depends_on:
       - web 
 
