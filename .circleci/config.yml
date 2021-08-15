@@ -70,7 +70,7 @@ jobs:
       - run:
           command: docker-compose down
       - run:
-          command: docker-compose web rails assets:precompile RAILS_ENV=production
+          command: docker-compose run web rails assets:precompile RAILS_ENV=production
       - run:
           command: docker-compose up --build
 # 定義したjobsをどう動かすか設定する
