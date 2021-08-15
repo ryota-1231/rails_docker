@@ -66,15 +66,15 @@ jobs:
       # CircleCIに登録した秘密鍵を呼び出す。
       - add_ssh_keys
       - run:
-          command: ssh ${USER_NAME}@${HOST_NAME} 'cd rails_docker && sudo git pull origin main'
-      - run:
-          command: docker-compose down
-      - run:
-          command: docker-compose build
-      - run:
-          command: docker-compose run web rails assets:precompile RAILS_ENV=production
-      - run:
-          command: docker-compose up
+          command: ssh ${USER_NAME}@${HOST_NAME} 'cd rails_docker && sudo git pull origin main && docker-compose down && docker-compose build && docker-compose run web rails assets:precompile RAILS_ENV=production && docker-compose up'
+      # - run:
+      #     command: docker-compose down
+      # - run:
+      #     command: docker-compose build
+      # - run:
+      #     command: docker-compose run web rails assets:precompile RAILS_ENV=production
+      # - run:
+      #     command: docker-compose up
 
 # 定義したjobsをどう動かすか設定する
 # テストが成功した場合のみ、deployを実行するようにします。
