@@ -38,6 +38,7 @@ COPY Gemfile.lock ${APP_ROOT}
 
 RUN gem install -N rails
 RUN bundle install
+RUN rails assets:precompile RAILS_ENV=production
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
