@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: dockerize -wait tcp://db:3306 -timeout 20s unicorn_rails -c config/unicorn.rb -E production -D
+    command: dockerize -wait tcp://db:3306 -timeout 20s unicorn_rails -c config/unicorn.rb -E production
     tty: true #pry-byebugを使えるようにする
     stdin_open: true
     depends_on:
@@ -14,9 +14,9 @@ services:
     volumes:
       - .:/myapp:cached 
       #ソケット通信用ファイルをnginxコンテナと共有
-      - tmp-data:/myapp/tmp/sockets
+      - tmp-data:/var/www/myapp/tmp/sockets
       #画像データとかをnginxと共有
-      - public-data:/myapp/public
+      - public-data:/var/www/myapp/public
 
   db:
     image: mysql:5.7
@@ -24,9 +24,9 @@ services:
     ports: 
       - '3306:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: ENV['DATABASE_PASSWORD']
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: root
-      MYSQL_PASSWORD:  ENV['DATABASE_PASSWORD']
+      MYSQL_PASSWORD:  password
     #dbのデータを永続化しておく
     volumes:
       - mysql-data:/var/lib/mysql
@@ -39,8 +39,8 @@ services:
       - 80:80
     restart: always #明示的にstopさせるまでリスタートする。（失敗するたび遅延あり）
     volumes:
-      - tmp-data:/myapp/tmp/sockets
-      - public-data:/myapp/public
+      - tmp-data:/var/www/myapp/tmp/sockets
+      - public-data:/var/www/myapp/public
     depends_on:
       - web 
 
