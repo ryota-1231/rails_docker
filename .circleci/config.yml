@@ -70,9 +70,12 @@ jobs:
       - run:
           command: docker-compose down
       - run:
+          command: docker-compose build
+      - run:
           command: docker-compose run web rails assets:precompile RAILS_ENV=production
       - run:
-          command: docker-compose up --build
+          command: docker-compose up
+
 # 定義したjobsをどう動かすか設定する
 # テストが成功した場合のみ、deployを実行するようにします。
 workflows:
